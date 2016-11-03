@@ -1,5 +1,7 @@
 package src;
 
+import java.util.Random;
+
 public class VigenereEncryptionProcess {
 
 	private static String keyword;
@@ -10,12 +12,29 @@ public class VigenereEncryptionProcess {
 	public VigenereEncryptionProcess(String keyword, String inputMessage){
 		this.inputMessage = inputMessage;
 		this.keyword = keyword;
+		trimEmptySpaces();
+	}
+	
+	public  String getKeyword(){
+		return keyword;
+	}
+	
+	public  String getInputMessage(){
+		return inputMessage;
+	}
+	
+	public static void setCipherText(String text, int index){
+		addEmptySpace(index);
+		cipherText += text;
+	}
+	
+	public static String getCiphertext(){
+		return createCipher();
 	}
 	
 	public static String createCipher(){
 		for(int i = 0; i < inputMessage.length(); i++){
 			if(checkIfFifthSymbol(i)) addEmptySpace(i);
-			//cipherText += vigenere(inputMessage.charAt(i), keyword.charAt(i));
 		}
 		return cipherText;
 	}
@@ -31,5 +50,18 @@ public class VigenereEncryptionProcess {
 	
 	public static void isKeyLongerThanMessage(){
 		if(inputMessage.length() >= keyword.length()) whichIsLonger = true;
+	}
+	
+	public static void fillWithRandom(){
+		if(whichIsLonger){
+			for(int i = (keyword.length() - inputMessage.length()); i < keyword.length(); i++){
+			//inputMessage += Random.
+			}
+		}
+	}
+	
+	public static void trimEmptySpaces(){
+		keyword.replace(" ", "");
+		inputMessage.replace(" ", "");
 	}
 }
