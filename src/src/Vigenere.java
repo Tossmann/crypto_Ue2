@@ -46,22 +46,24 @@ public class Vigenere {
 		enOrDecryptMessage();
 	}
 	
+	private void inserSpaceAfterFiveLetters (int currentPosition) {
+		if (checkIfFifthSymbol(currentPosition + 1))
+			outputMessage += " ";
+	}
+	
 	private void enOrDecryptMessage() {
 		outputMessage = "";
 		for(int i = 0; i < inputMessage.length(); i++){
 			String currentLetterOfInputMessage = Character.toString(inputMessage.charAt(i));
 			String currentLetterOfKeyString = Character.toString(keyString.charAt(i % keyString.length()));
 			String translatedLetter = translator.translateCharacter(currentLetterOfInputMessage,currentLetterOfKeyString);
-			if (checkIfFifthSymbol(i+1))
-				outputMessage += translatedLetter + " ";
-			else 
-				outputMessage += translatedLetter;
+			outputMessage += translatedLetter;
+			inserSpaceAfterFiveLetters(i);
 		}
 	}
 
 	public String getProcessedMessage(){
 		processMessage();
-		
 		return outputMessage;
 	}
 
