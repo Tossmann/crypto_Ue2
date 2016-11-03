@@ -5,24 +5,28 @@ import java.util.Scanner;
 public class Main {
 	
 	public static void main(String[] args) {
-		System.out.println(VigenereCharacterDecryption.decryptOneCharacter("b", "c"));	
-
-		// TODO Auto-generated method stub	
-		VigenereEncryptionProcess vigenere = initialDialog();
-		for(int i = 0; i < vigenere.getInputMessage().length(); i++){
-		vigenere.setCipherText(VigenereCharacterEncryption.encryptOneCharacter(Character.toString(vigenere.getInputMessage().charAt(i)), Character.toString(vigenere.getKeyword().charAt(i % vigenere.getKeyword().length()))), i);
-		}
-		System.out.println(vigenere.getCiphertext());
+		Vigenere vigenere = initializiationWithDialog();
+		System.out.println(vigenere.getProcessedMessage());
 	}
 
-	public static VigenereEncryptionProcess initialDialog(){
-		System.out.println("Please enter your keyword.");
+	public static Vigenere initializiationWithDialog(){
 		Scanner sc = new Scanner(System.in);
-		String keyword = sc.nextLine();
+		boolean askForCommand = true;
+		String encrptionOrDecryption = "";
+		while (askForCommand) {
+			System.out.println("Type 'en' for encryption and 'de' for decryption:");
+			encrptionOrDecryption = sc.nextLine();
+			askForCommand = !isInputCommand(encrptionOrDecryption);
+		}
+		System.out.println("Please enter your keyword.");
+		String keyString = sc.nextLine();
 		System.out.println("Now please enter your plaintext.");
 		String inputMessage = sc.nextLine();	
-		
-		return new VigenereEncryptionProcess(keyword, inputMessage);
+		return new Vigenere(keyString, inputMessage, encrptionOrDecryption);
+	}
+	
+	private static boolean isInputCommand(String input) {
+		return (input.equals("en") || input.equals("de"));
 	}
 
 }
