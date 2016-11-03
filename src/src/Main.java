@@ -5,6 +5,8 @@ import java.util.Scanner;
 public class Main {
 	
 	public static void main(String[] args) {
+		System.out.println(VigenereCharacterDecryption.decryptOneCharacter("b", "c"));	
+
 		// TODO Auto-generated method stub	
 		VigenereEncryptionProcess vigenere = initialDialog();
 		for(int i = 0; i < vigenere.getInputMessage().length(); i++){
