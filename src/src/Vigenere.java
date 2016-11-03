@@ -7,7 +7,7 @@ public class Vigenere {
 	String inputMessage;
 	String outputMessage;
 	boolean isKeyWordLongerThanText = false; 
-	boolean shouldDoEnryption;
+	VigenerCharacterTranslation translator;
 
 	public Vigenere(String inputKeyword, String inputMessage, String inputEncryptionOrDecryption){
 		this.inputMessage = inputMessage;
@@ -17,9 +17,9 @@ public class Vigenere {
 
 	private void determineWhichProcess(String input) {
 		if(input.equals("en"))
-			shouldDoEnryption = true;
+			translator = new VigenereCharacterEncryption();
 		else if (input.equals("de"))
-			shouldDoEnryption = false;
+			translator = new VigenereCharacterDecryption();
 	}
 	
 	private void fillUpWithRandomLetters(int amountOfLettersNeeded){
@@ -45,20 +45,13 @@ public class Vigenere {
 		fillinputMessageUpToBlocksOfFive();
 		enOrDecryptMessage();
 	}
-
-	private String translateOneLetter(String letterOfInputMessage, String letterOfKeyString) {
-		if (shouldDoEnryption)
-			return VigenereCharacterEncryption.encryptOneCharacter(letterOfInputMessage, letterOfKeyString);
-		else 
-			return VigenereCharacterDecryption.decryptOneCharacter(letterOfInputMessage, letterOfKeyString);
-	}
 	
 	private void enOrDecryptMessage() {
 		outputMessage = "";
 		for(int i = 0; i < inputMessage.length(); i++){
 			String currentLetterOfInputMessage = Character.toString(inputMessage.charAt(i));
 			String currentLetterOfKeyString = Character.toString(keyString.charAt(i % keyString.length()));
-			String translatedLetter = translateOneLetter(currentLetterOfInputMessage,currentLetterOfKeyString);
+			String translatedLetter = translator.translateCharacter(currentLetterOfInputMessage,currentLetterOfKeyString);
 			if (checkIfFifthSymbol(i+1))
 				outputMessage += translatedLetter + " ";
 			else 
@@ -70,10 +63,6 @@ public class Vigenere {
 		processMessage();
 		
 		return outputMessage;
-	}
-
-	private void addEmptySpace(int index){
-		if(checkIfFifthSymbol(index)) outputMessage += " ";
 	}
 
 	private Boolean checkIfFifthSymbol(int index){
