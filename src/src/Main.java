@@ -7,7 +7,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub	
 		VigenereEncryptionProcess vigenere = initialDialog();	
-		
+		System.out.println(VigenereCharacterEncryption.encryptOneCharacter("b", "y"));		
 	}
 
 	public static VigenereEncryptionProcess initialDialog(){
@@ -18,7 +18,6 @@ public class Main {
 		String inputMessage = sc.nextLine();	
 		
 		return new VigenereEncryptionProcess(keyword, inputMessage);
-		
 	}
 
 }
