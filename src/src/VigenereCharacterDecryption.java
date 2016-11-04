@@ -6,6 +6,8 @@ public class VigenereCharacterDecryption extends  VigenerCharacterTranslation {
 		String keyCharacter = intpuKeyCharacter.toUpperCase();
 
 		int numberFromCypherCharacter = plainCharacter.hashCode();
+		if (!isLetterInAlphabet(numberFromCypherCharacter))
+			return ("?");
 		int numberFromKeyCharacter = keyCharacter.hashCode();
 
 		int moveFor = super.getNumberYouHaveToMove(numberFromKeyCharacter);
